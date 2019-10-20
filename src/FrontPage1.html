@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生答题界面</title>
+    <script src="QuestionGenerator.js"></script>
+    <script src="jquery.js"></script>
+    <script>
+        function getQuestion() {
+            let qg = new QuestionGenerator();
+            let question = qg.generateQuestion();
+            let insertHTML = `<div><h3><span class="label label-default label-lg">${question.questionString()}</span></h3>
+            <form class="form-inline">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="number" class="form-control" id="answer" placeholder="填写答案">
+                    </div>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="check(${question._answer})">提交答案</button>
+            </form>
+            <br/>
+            <br/>
+            </div>`;
+            $("#questionPlate").html(insertHTML);
+        }
+    </script>
+    <script>
+        function check(correctAnswer) {
+            $("#answerTR").remove();
+            let userAnswer = $("#answer").val();
+            if(judgementAnswer(correctAnswer, userAnswer)){
+                alert("正确！答案是"+correctAnswer);
+            } else {
+                alert("错误！答案是"+correctAnswer);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="col-md-4"></div>
+    <div class="col-md-4" id="questionTable">
+        <h2>学生答题</h2>
+        <button type="button" class="btn btn-primary btn-lg btn-block" onclick="getQuestion()" style="float:left">生成问题</button>
+        <br/><br/>
+        <div id="questionPlate" style="float:left">
+
+        </div>
+        <br/>
+        <br/>
+    </div>
+
+
+</body>
+</html>
